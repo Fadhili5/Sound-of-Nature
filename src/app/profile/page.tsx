@@ -1,12 +1,46 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { Navigation } from '@/app/components/navigation';
+
 export default function ProfilePage() {
-    return (
-      <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-green-100 to-blue-50 py-8 px-4">
+  const router = useRouter();
+
+  const handleEditProfile = () => {
+    alert('Edit profile feature to be implemented');
+  };
+
+  const navigateToBiomimicry = () => {
+    router.push('/biomimicry-insights');
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-green-100 to-blue-50">
+      <Navigation />
+      
+      <div className="flex flex-col items-center py-8 px-4">
         {/* Header */}
-        <header className="text-center mb-12">
+        <header className="text-center mb-8">
           <h1 className="text-4xl font-bold text-green-800">My Profile</h1>
           <p className="text-lg text-gray-600">Your personalized nature companion</p>
+          
+          {/* Profile Image */}
+          <div className="mt-4">
+            <img 
+              src="https://via.placeholder.com/100" 
+              alt="User Profile" 
+              className="rounded-full h-24 w-24 mx-auto border-4 border-green-300" 
+            />
+          </div>
+
+          {/* Edit Profile Button */}
+          <button 
+            className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+            onClick={handleEditProfile}>
+            Edit Profile
+          </button>
         </header>
-  
+
         {/* Profile Information */}
         <section className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mb-8">
           <h2 className="text-2xl font-semibold text-green-700 mb-4">Profile Details</h2>
@@ -16,7 +50,7 @@ export default function ProfilePage() {
             <p><strong>Time Spent in Nature:</strong> 5 hours this week</p>
           </div>
         </section>
-  
+
         {/* Health Analytics */}
         <section className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
           <h2 className="text-2xl font-semibold text-blue-700 mb-4">Health Analytics</h2>
@@ -38,7 +72,7 @@ export default function ProfilePage() {
             </div>
           </div>
         </section>
-  
+
         {/* Recommendations */}
         <section className="mt-8 bg-green-100 rounded-lg p-6 w-full max-w-md">
           <h3 className="text-xl font-semibold text-green-800 mb-4">Recommendations</h3>
@@ -48,14 +82,17 @@ export default function ProfilePage() {
             <li>Spend 15 minutes outdoors daily to enhance relaxation.</li>
           </ul>
         </section>
-  
+
         {/* Footer */}
         <footer className="mt-12 text-center">
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
-            Explore More Soundscapes
+          <button 
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition"
+            onClick={navigateToBiomimicry}>
+            Insights on Biomimicry
           </button>
         </footer>
       </div>
-    );
-  }
+    </div>
+  );
+}
   
