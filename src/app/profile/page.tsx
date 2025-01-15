@@ -27,7 +27,7 @@ export default function ProfilePage() {
           {/* Profile Image */}
           <div className="mt-4">
             <img 
-              src="https://via.placeholder.com/100" 
+              src="/images/appimages/Profile.jpg" 
               alt="User Profile" 
               className="rounded-full h-24 w-24 mx-auto border-4 border-green-300" 
             />
@@ -45,9 +45,9 @@ export default function ProfilePage() {
         <section className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mb-8">
           <h2 className="text-2xl font-semibold text-green-700 mb-4">Profile Details</h2>
           <div className="space-y-2 text-gray-700">
-            <p><strong>Username:</strong> NatureEnthusiast</p>
+            <p><strong>Username:</strong> Denis Fadhili</p>
             <p><strong>Favorite Soundscape:</strong> Forest Rainfall</p>
-            <p><strong>Time Spent in Nature:</strong> 5 hours this week</p>
+            <p><strong>Time Spent in Nature:</strong> 8 hours this week</p>
           </div>
         </section>
 
