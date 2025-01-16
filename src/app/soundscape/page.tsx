@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -18,19 +18,59 @@ const SoundMap = dynamic(() => import('@/components/SoundMap').then(mod => mod.S
 const backgrounds = [
   { 
     name: "Forest", 
-    imgUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80"
+    imgUrl: "/images/backgrounds/Forest.avif"
+  },
+  { 
+    name: "Clouds", 
+    imgUrl: "/images/backgrounds/clouds.jpg"
+  },
+  { 
+    name: "Droplet", 
+    imgUrl: "/images/backgrounds/droplet.jpg"
+  },
+  { 
+    name: "Elephant", 
+    imgUrl: "/images/backgrounds/elephant.jpg"
   },
   { 
     name: "Beach", 
-    imgUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80"
+    imgUrl: "/images/backgrounds/beach.avif"
   },
   { 
-    name: "Mountains", 
-    imgUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80"
+    name: "Chimp", 
+    imgUrl: "/images/backgrounds/chimp.jpg"
   },
   { 
-    name: "Desert", 
-    imgUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&q=80"
+    name: "Horse", 
+    imgUrl: "/images/backgrounds/horse.jpg"
+  },
+  { 
+    name: "Lightning", 
+    imgUrl: "/images/backgrounds/lightning.jpg"
+  },
+  { 
+    name: "Mountain", 
+    imgUrl: "/images/backgrounds/mountain.avif"
+  },
+  { 
+    name: "Nightsky", 
+    imgUrl: "/images/backgrounds/nightsky.jpg"
+  },
+  { 
+    name: "Penguins", 
+    imgUrl: "/images/backgrounds/penguins.jpg"
+  },
+  { 
+    name: "Pine", 
+    imgUrl: "/images/backgrounds/pine.jpg"
+  },
+  { 
+    name: "Starfish", 
+    imgUrl: "/images/backgrounds/starfish.jpg"
+  },
+  { 
+    name: "Sunrise", 
+    imgUrl: "/images/backgrounds/sunrise.jpg"
   },
 ];
 
@@ -51,7 +91,7 @@ export default function SoundscapePage() {
   const [selectedMood, setSelectedMood] = useState(moods[0].name);
   const [showSidecar, setShowSidecar] = useState(false);
   const [showMap, setShowMap] = useState(false);
-  const [currentSound, setCurrentSound] = useState<string | null>(null);
+  const [currentSound, setCurrentSound] = useState<{ url: string, name: string, artist: string } | null>(null);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -74,9 +114,8 @@ export default function SoundscapePage() {
     }
   }
 
-  const handleSoundSelect = (soundUrl: string) => {
-    setCurrentSound(soundUrl);
-    // You can add additional logic here, like auto-playing the sound
+  const handleSoundSelect = (sound: { url: string, name: string, artist: string }) => {
+    setCurrentSound(sound);
   };
 
   if (status === 'loading' || loading) return <div>Loading...</div>;
@@ -125,7 +164,6 @@ export default function SoundscapePage() {
               backgrounds={backgrounds}
               selectedBackground={selectedBackground}
               onSelect={setSelectedBackground}
-              onClose={() => setShowSidecar(false)}
             />
             <MoodSelector
               moods={moods}
@@ -138,18 +176,8 @@ export default function SoundscapePage() {
         {showMap && (
           <SoundMap 
             onClose={() => setShowMap(false)} 
-            onSelectSound={handleSoundSelect}
+            onSelectSound={(url, name, artist) => handleSoundSelect({ url, name, artist })}
           />
-        )}
-
-        {currentSound && (
-          <div className="fixed bottom-4 left-4 z-40 bg-white rounded-lg shadow-lg p-4">
-            <audio 
-              controls 
-              src={currentSound}
-              className="w-full max-w-md"
-            />
-          </div>
         )}
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -159,14 +187,28 @@ export default function SoundscapePage() {
               className="bg-white bg-opacity-90 rounded-lg shadow-lg p-6 hover:transform hover:scale-105 transition-all"
             >
               <h2 className="text-xl font-semibold mb-3">{soundscape.name}</h2>
-              <audio 
-                controls 
-                src={soundscape.audioUrl} 
-                className="w-full"
-              />
+              <button 
+                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                onClick={() => handleSoundSelect({ url: soundscape.audioUrl, name: soundscape.name, artist: soundscape.artist })}
+              >
+                Play
+              </button>
             </div>
           ))}
         </div>
+
+        {currentSound && (
+          <div className="fixed bottom-0 left-0 right-0 z-40 bg-white shadow-lg p-2 flex items-center space-x-2">
+            <div className="p-2">
+              <img src="/images/thumb-placeholder.png" alt="Thumbnail" className="w-16 h-16 object-cover rounded-full" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold">{currentSound.name}</h3>
+              <p className="text-gray-600">{currentSound.artist}</p>
+            </div>
+            <audio controls autoPlay src={currentSound.url} className="w-full max-w-md" />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -14,10 +14,12 @@ export default function ProfilePage() {
     router.push('/biomimicry-insights');
   };
 
+  const navigateToAnalytics = () => {
+    router.push('/analytics')
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-100 to-blue-50">
-      <Navigation />
-      
       <div className="flex flex-col items-center py-8 px-4">
         {/* Header */}
         <header className="text-center mb-8">
@@ -53,7 +55,13 @@ export default function ProfilePage() {
 
         {/* Health Analytics */}
         <section className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-          <h2 className="text-2xl font-semibold text-blue-700 mb-4">Health Analytics</h2>
+          <h2 className="text-2xl font-semibold text-blue-700 mb-4"> 
+            <button 
+              className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition"
+              onClick={navigateToAnalytics}>
+              Health Analytics 
+            </button>
+          </h2>
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <p className="text-gray-700">Stress Levels:</p>

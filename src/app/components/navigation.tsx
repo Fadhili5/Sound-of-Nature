@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/soundscape', label: 'Create Soundscape' },
-  { href: '/biomimicry-insights', label: 'Biomimicry Insights' },
+  { href: '/community', label: 'Community' },
   { href: '/profile', label: 'My Profile' },
   { href: '/about', label: 'About' },
 ]
